@@ -4,7 +4,8 @@
 
 
 class Community(object):
-    def __init__(self, district, area, name, price, on_sale):
+    def __init__(self, city, district, area, name, price, on_sale):
+        self.city = city
         self.district = district
         self.area = area
         self.price = price
@@ -12,7 +13,8 @@ class Community(object):
         self.on_sale = on_sale
 
     def text(self):
-        return self.district + "," + \
+        return self.city + "," + \
+                self.district + "," + \
                 self.area + "," + \
                 self.name + "," + \
                 self.price + "," + \
