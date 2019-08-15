@@ -70,14 +70,19 @@ class CommunityBaseSpider(BaseSpider):
                 price = house_elem.find('div', class_="totalPrice")
                 name = house_elem.find('div', class_='title')
                 on_sale = house_elem.find('div', class_="xiaoquListItemSellCount")
+                price_desc = house_elem.find('div', class_="priceDesc")
 
                 # 继续清理数据
                 price = price.text.strip()
                 name = name.text.replace("\n", "")
                 on_sale = on_sale.text.replace("\n", "").strip()
+                price_desc = price_desc.text.replace("\n", "").strip()
+                # 获取年、月
+                month = get_month(price_desc)
+                year = get_year(month)
 
                 # 作为对象保存
-                community = Community(city, chinese_district, chinese_area, name, price, on_sale)
+                community = Community(city, chinese_district, chinese_area, name, price, on_sale, month, year)
                 community_list.append(community)
         return community_list
 
