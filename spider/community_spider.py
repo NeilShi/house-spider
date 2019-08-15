@@ -77,17 +77,14 @@ class CommunityBaseSpider(BaseSpider):
                 on_sale = on_sale.text.replace("\n", "").strip()
 
                 # 作为对象保存
-                community = Community(chinese_district, chinese_area, name, price, on_sale)
+                community = Community(city, chinese_district, chinese_area, name, price, on_sale)
                 community_list.append(community)
         return community_list
 
-    def start(self, req):
-        city = req.form['city']
-        area = req.form['area']
-        district = req.form['district']
+    def start(self, city, area, district):
         print('City: ', city)
-        print('Area: {0}', area)
-        print('District: {0}', district)
+        print('Area: ', area)
+        print('District: ', district)
 
         # 生成中英文对照表
         get_districts(city)
