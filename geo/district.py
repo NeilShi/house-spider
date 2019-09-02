@@ -23,10 +23,11 @@ def get_chinese_district(en):
     return chinese_city_district_dict.get(en, None)
 
 
-def get_districts(city):
+def get_districts(city, for_dict):
     """
     获取各城市的区县中英文对照信息
     :param city: 城市
+    :param for_dict: 是否返回中英字典
     :return: 英文区县名列表
     """
     url = 'https://{0}.{1}.com/xiaoqu/'.format(city, SPIDER_NAME)
@@ -46,13 +47,17 @@ def get_districts(city):
     for index, name in enumerate(en_names):
         chinese_city_district_dict[name] = ch_names[index]
         # print(name + ' -> ' + ch_names[index])
-    return en_names
+
+    if for_dict:
+        return chinese_city_district_dict
+    else:
+        return en_names
 
 
 if __name__ == '__main__':
     for key in cities.keys():
         # 寻找那些网页格式不合规的城市
         chinese_city_district_dict = dict()
-        get_districts(key)
+        get_districts(key, False)
         if len(chinese_city_district_dict.items()) == 0:
             print(key)
