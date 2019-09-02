@@ -18,11 +18,12 @@ def get_district_url(city, district):
     return "http://{0}.{1}.com/xiaoqu/{2}".format(city, SPIDER_NAME, district)
 
 
-def get_areas(city, district):
+def get_areas(city, district, for_dict):
     """
     通过城市和区县名获得下级板块名
     :param city: 城市
     :param district: 区县
+    :param for_dict: 是否返回中英字典
     :return: 区县列表
     """
     page = get_district_url(city, district)
@@ -47,11 +48,14 @@ def get_areas(city, district):
                 chinese_area_dict[area] = chinese_area
                 # print(chinese_area)
                 areas.append(area)
-        return areas
+        if for_dict:
+            return chinese_area_dict
+        else:
+            return areas
     except Exception as e:
         print(e)
 
 
 if __name__ == "__main__":
-    print(get_areas("cq", "yubei"))
+    print(get_areas("cq", "yubei", False))
 
