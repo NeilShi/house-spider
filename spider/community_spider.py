@@ -92,8 +92,8 @@ class CommunityBaseSpider(BaseSpider):
         print('District: ', district)
 
         # 生成中英文对照表
-        get_districts(city)
-        get_areas(city, district)
+        get_districts(city, False)
+        get_areas(city, district, False)
         return self.collect_area_community_data(city, district, area)
 
 
